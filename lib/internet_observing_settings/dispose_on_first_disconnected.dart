@@ -1,7 +1,7 @@
 import '../constants.dart';
-import 'socket_connection_strategy.dart';
+import 'socket_observing_strategy.dart';
 
-class DisposeOnFirstDisconnectedStrategy extends SocketConnectionStrategy {
+class DisposeOnFirstDisconnectedStrategy extends SocketObservingStrategy {
   DisposeOnFirstDisconnectedStrategy(
       {super.timeOut,
       super.interval = kDefaultInterval,

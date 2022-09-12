@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../internet_connectivity.dart';
 
-
-typedef InternetAccessListener = Function(
+typedef ConnectivityListener = Function(
     BuildContext context, bool hasInternetAccess);
 
 // ignore: must_be_immutable
@@ -21,7 +20,7 @@ class InternetConnectivityListener extends StatefulWidget {
 
   final Widget child;
   InternetConnectivity? _internetConnectivity;
-  final InternetAccessListener connectivityListener;
+  final ConnectivityListener connectivityListener;
 
   @override
   _InternetConnectivityListenerState createState() =>
@@ -30,7 +29,7 @@ class InternetConnectivityListener extends StatefulWidget {
 
 class _InternetConnectivityListenerState
     extends State<InternetConnectivityListener> {
-  InternetAccessListener? get onConnectivityChanged =>
+  ConnectivityListener? get onConnectivityChanged =>
       widget.connectivityListener;
 
   InternetConnectivity get internetConnectivity =>
@@ -41,8 +40,7 @@ class _InternetConnectivityListenerState
   @override
   void initState() {
     super.initState();
-    subscription =
-        internetConnectivity.observeInternetAccess.listen((event) {
+    subscription = internetConnectivity.observeInternetAccess.listen((event) {
       onConnectivityChanged?.call(context, event);
     });
   }

@@ -1,7 +1,7 @@
 import '../constants.dart';
-import 'socket_connection_strategy.dart';
+import 'socket_observing_strategy.dart';
 
-class DefaultObServingStrategy extends SocketConnectionStrategy {
+class DefaultObServingStrategy extends SocketObservingStrategy {
   DefaultObServingStrategy(
       {super.timeOut,
       super.interval = kDefaultInterval,

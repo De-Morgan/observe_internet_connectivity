@@ -10,7 +10,7 @@ class InternetConnectivity {
   Timer? _intervalTimer, disposeTimer;
   bool _streamIsClosed = false;
 
-   InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
+  InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
     _internetObservingStrategy =
         internetObservingStrategy ?? DefaultObServingStrategy();
     _internetAccessCheckController = StreamController<bool>.broadcast(

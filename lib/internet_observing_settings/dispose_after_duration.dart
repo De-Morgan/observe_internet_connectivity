@@ -1,7 +1,7 @@
 import '../constants.dart';
-import 'socket_connection_strategy.dart';
+import 'socket_observing_strategy.dart';
 
-class DisposeAfterDurationStrategy extends SocketConnectionStrategy {
+class DisposeAfterDurationStrategy extends SocketObservingStrategy {
   @override
   final Duration duration;
 

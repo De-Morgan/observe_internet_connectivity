@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../internet_connectivity.dart';
 
-
-
-
-typedef InternetAccessBuilder = Widget Function(
+typedef ConnectivityBuilder = Widget Function(
     BuildContext context, bool hasInternetAccess, Widget? child);
 
 // ignore: must_be_immutable
@@ -22,7 +19,7 @@ class InternetConnectivityBuilder extends StatelessWidget {
 
   final Widget? child;
   InternetConnectivity? _internetConnectivity;
-  final InternetAccessBuilder connectivityBuilder;
+  final ConnectivityBuilder connectivityBuilder;
   final bool initialData;
 
   @override
