@@ -26,7 +26,7 @@ class InternetConnectivityBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
       initialData: initialData,
-      stream: _internetConnectivity!.observeInternetAccess,
+      stream: _internetConnectivity!.observeInternetConnection,
       builder: (context, snapshot) {
         return connectivityBuilder.call(context, snapshot.data!, child);
       },

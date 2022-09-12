@@ -15,7 +15,7 @@ abstract class InternetObservingStrategy {
 
   /// The strategy to use to determine is there is internet access or not
   /// check [SocketObservingStrategy] for a sample
-  Future<bool> get hasInternetAccess;
+  Future<bool> get hasInternetConnection;
 
   bool get disposeOnFirstConnected => false;
 

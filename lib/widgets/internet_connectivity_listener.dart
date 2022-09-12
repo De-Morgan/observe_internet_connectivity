@@ -40,7 +40,7 @@ class _InternetConnectivityListenerState
   @override
   void initState() {
     super.initState();
-    subscription = internetConnectivity.observeInternetAccess.listen((event) {
+    subscription = internetConnectivity.observeInternetConnection.listen((event) {
       onConnectivityChanged?.call(context, event);
     });
   }

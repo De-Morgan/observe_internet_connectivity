@@ -53,7 +53,7 @@ abstract class SocketObservingStrategy extends InternetObservingStrategy {
   /// Once an address connects, it is assumed that there is internet access and the process stops
   ///
   @override
-  Future<bool> get hasInternetAccess async {
+  Future<bool> get hasInternetConnection async {
     final futures = internetAddresses
         .map((internetAddress) => _hasInternet(internetAddress));
     final stream = Stream.fromFutures(futures);

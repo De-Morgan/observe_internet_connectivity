@@ -17,16 +17,16 @@ class InternetConnectivity {
         onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
   }
 
-  Future<bool> get hasInternetAccess =>
-      _internetObservingStrategy.hasInternetAccess;
+  Future<bool> get hasInternetConnection =>
+      _internetObservingStrategy.hasInternetConnection;
 
-  Stream<bool> get observeInternetAccess =>
+  Stream<bool> get observeInternetConnection =>
       _internetAccessCheckController.stream;
 
   Future<void> _emitInternetAccess() async {
     if (_streamIsClosed) return;
     _intervalTimer?.cancel();
-    final isConnected = await hasInternetAccess;
+    final isConnected = await hasInternetConnection;
     _addToStream(isConnected);
     _intervalTimer =
         Timer(_internetObservingStrategy.interval, _emitInternetAccess);
@@ -36,7 +36,7 @@ class InternetConnectivity {
     _disposeAfterDuration();
     final isConnected = await Future.delayed(
         _internetObservingStrategy.initialDuration ?? kDefaultInitialDuration,
-        () => hasInternetAccess);
+        () => hasInternetConnection);
     _addToStream(isConnected);
     _emitInternetAccess();
   }
