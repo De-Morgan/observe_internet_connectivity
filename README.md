@@ -60,7 +60,7 @@ Note:bell:: This example use the `DefaultObServingStrategy` therefore you need t
   
 This is mostly useful if you want to get notified of internet connection changes in the widget class, either to retry a failed request or to give the user some feedback about their network state.
 
- ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Listener.mp4)
+ ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Listener.gif)
 
 4. **Use `InternetConnectivityBuilder` to build internet connection aware widgets**
 
@@ -78,7 +78,7 @@ This is mostly useful if you want to get notified of internet connection changes
    ```
   This returns the `OnlineWidget` when the user has internet connection and returns the `OfflineWidget` widget when the user is disconnected
 
- ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Builder.mp4)
+ ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Builder.gif)
 
 ## Deep Dive
 
