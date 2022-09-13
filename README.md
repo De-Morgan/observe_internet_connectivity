@@ -11,12 +11,70 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A flutter package that helps to observes internet connection via a customizable observing strategy
 
-## Features
+## Available Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+1. **Check to know if the device has internet connection**
+
+```dart
+final hasInternet = await InternetConnectivity().hasInternetAccess;
+  if (hasInternet) {
+    //You are connected to the internet
+  } else {
+    //"No internet connection
+  }
+  ```
+
+2. **Listen to internet connectivity changes via stream**
+
+```dart
+  final subscription =
+      InternetConnectivity().observeInternetAccess.listen((bool hasInternetAccess) {
+        if(!hasInternetAccess){
+          showToast('No Internet Connection');
+        }
+      });
+
+   await Future.delayed(const Duration(seconds: 10 ));
+   subscription.cancel();
+   ```
+Note:bell:: This example uses the `DefaultObServingStrategy` therefore you need to remember to close the stream manually, Other available strategies have mechanism in which the streams are closed automatically.
+
+3. **Use `InternetConnectivityListener` to listen to internet connectivity changes inside a flutter widget**
+
+```dart
+    return InternetConnectivityListener(
+      connectivityListener: (BuildContext context, bool hasInternetAccess) {
+        if (!hasInternetAccess) {
+           showToast('No internet connection');
+        }
+      },
+      child: Scaffold(
+        body: Container(),
+      ),
+    );
+  ```  
+    
+This is mostly useful if you want to get notified of internet connection changes in the widget class, either to retry a failed request or to give the user some feedback about their network state.
+    
+
+4. **Use `InternetConnectivityBuilder` to build internet connection aware widgets**
+
+```dart
+    return InternetConnectivityBuilder(
+      connectivityBuilder: (BuildContext context, bool hasInternetAccess, Widget? child) { 
+        if(hasInternetAccess) {
+          return OnlineWidget();
+        } else {
+          return OfflineWidget();
+        }
+      },
+      child: ChildWidget(),
+    );
+   ```
+  This returns the `OnlineWidget` when the user has internet connection and returns the `OfflineWidget` widget when the user is disconnected
+
 
 ## Getting started
 
