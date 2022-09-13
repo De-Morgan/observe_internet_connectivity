@@ -225,7 +225,7 @@ const _defaultTimeOut = Duration(seconds: 3);
 
 ## Implementing your own `InternetObservingStrategy`
 
-For example you can implement a fake observing strategy as follows for testing;
+For example you can implement a fake observing strategy for testing as follows;
 
 ```dart
 class FakeObservingStrategy extends InternetObservingStrategy{
@@ -240,13 +240,13 @@ class FakeObservingStrategy extends InternetObservingStrategy{
 }
 ```
 
-You can also implement an `HttpObservingStrategy` as follows;
+You can also implement an `HttpsObservingStrategy` as follows;
 
 ```dart
-class HttpObservingStrategy extends InternetObservingStrategy {
+class HttpsObservingStrategy extends InternetObservingStrategy {
   final String lookUpAddress;
 
-  HttpObservingStrategy({this.lookUpAddress = 'www.google.com'});
+  HttpsObservingStrategy({this.lookUpAddress = 'www.google.com'});
 
   @override
   Duration? get initialDuration => const Duration(seconds: 0);
@@ -307,9 +307,6 @@ final internetConnectivityProvider = Provider<InternetConnectivity>((ref) {
 });
 ```
 
-### Todos
-
-- [ ] Write test cases
 
 
 
