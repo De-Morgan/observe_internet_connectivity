@@ -90,7 +90,7 @@ The `InternetConnectivity` class is reponsible for observing the internet connec
   }
   ```
   
-The package checks for active internet connection by opening a socket to a list of specified addresses, each with individual port and timeout using  `SocketObservingStrategy`. If you'd like to implement a different type of observing strategy, you can create a new  strategy by extending `InternetObservingStrategy`. All observing strategy is a sub-class of `InternetObservingStrategy`
+The package checks for active internet connection by opening a socket to a list of specified addresses, each with individual port and timeout using  `SocketObservingStrategy`. If you'd like to implement a different type of observing strategy, you can create a new  strategy by extending `InternetObservingStrategy`. All observing strategies are a sub-class of `InternetObservingStrategy`
 
   ### `SocketObservingStrategy`
 
@@ -223,6 +223,50 @@ const _defaultPort = 53;
 const _defaultTimeOut = Duration(seconds: 3);
 ```
 
+## Implementing your own `InternetObservingStrategy`
+
+For example you can implement a fake observing strategy as follows for testing;
+
+```dart
+class FakeObservingStrategy extends InternetObservingStrategy{
+  @override
+  Future<bool> get hasInternetConnection async=> true;
+
+  @override
+  Duration? get initialDuration => const Duration(seconds: 0);
+
+  @override
+  Duration get interval => const Duration(seconds: 5);
+}
+```
+
+You can also implement an `HttpObservingStrategy` as follows;
+
+```dart
+class HttpObservingStrategy extends InternetObservingStrategy {
+  final String lookUpAddress;
+
+  HttpObservingStrategy({this.lookUpAddress = 'www.google.com'});
+
+  @override
+  Duration? get initialDuration => const Duration(seconds: 0);
+
+  @override
+  Duration get interval => const Duration(seconds: 10);
+
+  @override
+  Future<bool> get hasInternetConnection async {
+    try {
+      var url = Uri.https(lookUpAddress, '',);
+     await http.get(url);
+     return true;
+    } catch (_) {
+      return false;
+    }
+  }
+}
+```
+
 ## Additional information
 
 Note:bell:: The `InternetConnectivity` is not a singleton, for the ease of testing. If you would like to maintain a single instance through out the app lifecyle, you can:
@@ -265,7 +309,7 @@ final internetConnectivityProvider = Provider<InternetConnectivity>((ref) {
 
 ### Todos
 
-[ ] Write test cases
+- [ ] Write test cases
 
 
 
