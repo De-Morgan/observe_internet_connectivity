@@ -26,7 +26,7 @@ A flutter package that helps to observe internet connection via a customizable o
   }
   ```
 
-2. **Listen to internet connectivity changes via stream**
+2. **Listen to internet connection changes via stream**
 
 ```dart
   final subscription =
@@ -62,6 +62,7 @@ This is mostly useful if you want to get notified of internet connection changes
 
  ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Listener.gif)
 
+
 4. **Use `InternetConnectivityBuilder` to build internet connection aware widgets**
 
 ```dart
@@ -79,10 +80,11 @@ This is mostly useful if you want to get notified of internet connection changes
   This returns the `OnlineWidget` when the user has internet connection and returns the `OfflineWidget` widget when the user is disconnected
 
  ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Builder.gif)
+ 
 
 ## Deep Dive
 
-The `InternetConnectivity` class is reponsible for observing the internet connectivity using the `InternetObservingStrategy` class, and a `StreamController` to emit internet connection changes. If no strategy is supplied when creating the `InternetConnectivity`, the `DefaultObServingStrategy` will be used.
+The `InternetConnectivity` class is reponsible for observing the internet connectivity using the `InternetObservingStrategy` and a `StreamController` to emit internet connection changes. If no strategy is supplied when creating `InternetConnectivity`, the `DefaultObServingStrategy` will be used.
 
 ```dart
   InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
@@ -170,7 +172,7 @@ abstract class SocketObservingStrategy extends InternetObservingStrategy {
   }
 }
   ```
-You won't have to use the `SocketObservingStrategy` directly because there are 4 convenient subclass of `SocketObservingStrategy` for different use case, namely;
+The library comes with 4 different strategies that extends `SocketObservingStrategy` for different use case, namely;
 
 1. `DefaultObServingStrategy`:
 This is the strategy used if you don't supply any strategy to the `InternetConnectivity` class, you will have to cancel the subscription manually.
@@ -197,7 +199,7 @@ class DisposeAfterDurationStrategy extends SocketObservingStrategy {
       super.internetAddresses = kDefaultInternetAddresses});
 }
 ```
-each of the strategies are initiated with default values for conveniency, you can override any of the default values. e.g creating a 
+each of the strategies are initiated with default values for convenience, you can override any of the default values. e.g creating a 
 `DefaultObServingStrategy` with a `timeOut` of 5 sec and `initialDuration` of 2 mins.
 
 ```dart
@@ -311,5 +313,10 @@ final internetConnectivityProvider = Provider<InternetConnectivity>((ref) {
 ```
 
 
+ ***Check more examples in the [example folder](https://github.com/De-Morgan/observe_internet_connectivity/blob/master/example/)***.
+ **If you like the project, don't forget to star ⭐️**
+
+## License
+This package is licensed under the MIT license. See [LICENSE](https://github.com/De-Morgan/observe_internet_connectivity/blob/master/LICENSE) for details.
 
 
