@@ -6,8 +6,7 @@ class InternetAddress {
   const InternetAddress(
       {required this.host, required this.port, required this.timeOut});
 
-  InternetAddress copyWith(
-          {String? host, int? port, Duration? timeOut}) =>
+  InternetAddress copyWith({String? host, int? port, Duration? timeOut}) =>
       InternetAddress(
           host: host ?? this.host,
           port: port ?? this.port,
