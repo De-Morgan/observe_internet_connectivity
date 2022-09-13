@@ -18,7 +18,7 @@ A flutter package that helps to observes internet connection via a customizable 
 1. **Check to know if the device has internet connection**
 
 ```dart
-final hasInternet = await InternetConnectivity().hasInternetAccess;
+  final hasInternet = await InternetConnectivity().hasInternetConnection;
   if (hasInternet) {
     //You are connected to the internet
   } else {
@@ -30,7 +30,7 @@ final hasInternet = await InternetConnectivity().hasInternetAccess;
 
 ```dart
   final subscription =
-      InternetConnectivity().observeInternetAccess.listen((bool hasInternetAccess) {
+      InternetConnectivity().observeInternetConnection.listen((bool hasInternetAccess) {
         if(!hasInternetAccess){
           showToast('No Internet Connection');
         }
@@ -46,8 +46,10 @@ Note:bell:: This example uses the `DefaultObServingStrategy` therefore you need 
 ```dart
     return InternetConnectivityListener(
       connectivityListener: (BuildContext context, bool hasInternetAccess) {
-        if (!hasInternetAccess) {
-           showToast('No internet connection');
+        if (hasInternetAccess) {
+          context.showBanner('You are back Online!', color: Colors.green);
+        } else {
+          context.showBanner('No internet connection', color: Colors.red);
         }
       },
       child: Scaffold(
