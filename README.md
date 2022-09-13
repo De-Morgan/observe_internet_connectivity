@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-A flutter package that helps to observes internet connection via a customizable observing strategy
+A flutter package that helps to observe internet connection via a customizable observing strategy
 
 ## Available Features
 
@@ -39,7 +39,7 @@ A flutter package that helps to observes internet connection via a customizable 
    await Future.delayed(const Duration(seconds: 10 ));
    subscription.cancel();
    ```
-Note:bell:: This example uses the `DefaultObServingStrategy` therefore you need to remember to close the stream manually, Other available strategies have mechanism in which the streams are closed automatically.
+Note:bell:: This example use the `DefaultObServingStrategy` therefore you need to remember to cancel the subscription manually, Other available strategies have mechanism in which the subscription are automatically cancelled.
 
 3. **Use `InternetConnectivityListener` to listen to internet connectivity changes inside a flutter widget**
 
@@ -77,23 +77,195 @@ This is mostly useful if you want to get notified of internet connection changes
    ```
   This returns the `OnlineWidget` when the user has internet connection and returns the `OfflineWidget` widget when the user is disconnected
 
+## Deep Dive
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+The `InternetConnectivity` class is reponsible for observing the internet connectivity using the `InternetObservingStrategy` class, and a `StreamController` to emit internet connection changes. If no strategy is supplied when creating the `InternetConnectivity`, the `DefaultObServingStrategy` will be used.
 
 ```dart
-const like = 'sample';
+  InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
+    _internetObservingStrategy =
+        internetObservingStrategy ?? DefaultObServingStrategy();
+    _internetAccessCheckController = StreamController<bool>.broadcast(
+        onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
+  }
+  ```
+  
+The package checks for active internet connection by opening a socket to a list of specified addresses, each with individual port and timeout using  `SocketObservingStrategy`. If you'd like to implement a different type of observing strategy, you can create a new  strategy by extending `InternetObservingStrategy`. All observing strategy is a sub-class of `InternetObservingStrategy`
+
+  ### `SocketObservingStrategy`
+
+```dart
+abstract class SocketObservingStrategy extends InternetObservingStrategy {
+  /// The initial duration to wait before observing internet access
+  ///
+  /// Defaults to [kDefaultInitialDuration] (0 seconds)
+  @override
+  final Duration? initialDuration;
+
+  /// The interval between periodic observing.
+  ///
+  /// Defaults to [kDefaultInterval] (5 seconds).
+  @override
+  final Duration interval;
+
+  /// The timeout period before a check request is dropped and an address is
+  /// considered unreachable.
+  ///
+  /// If not null, it is set to the [timeOut] for each of the [internetAddresses].
+  ///  if (timeOut != null) {
+  ///       internetAddresses = internetAddresses
+  ///           .map((e) => e.copyWith(timeOut: timeOut))
+  ///           .toList(growable: false);
+  ///     }
+  final Duration? timeOut;
+
+  /// A list of internet addresses (with port and timeout) to ping.
+  ///
+  /// These should be globally available destinations.
+  ///
+  /// Default is [kDefaultInternetAddresses].
+  List<InternetAddress> internetAddresses;
+
+  SocketObservingStrategy(
+      {this.initialDuration,
+      required this.interval,
+      this.timeOut,
+      required this.internetAddresses}) {
+    if (timeOut != null) {
+      internetAddresses = internetAddresses
+          .map((e) => e.copyWith(timeOut: timeOut))
+          .toList(growable: false);
+    }
+  }
+
+  /// The observing strategy is to ping each of the [internetAddresses] supplied,
+  /// Using [stream.any] to check for the first address to connect.
+  /// Once an address connects, it is assumed that there is internet access and the process stops
+  ///
+  @override
+  Future<bool> get hasInternetConnection async {
+    final futures = internetAddresses
+        .map((internetAddress) => _hasInternet(internetAddress));
+    final stream = Stream.fromFutures(futures);
+    return stream.any((element) => element);
+  }
+
+  Future<bool> _hasInternet(InternetAddress internetAddress) async {
+    Socket? sock;
+    try {
+      sock = await Socket.connect(
+        internetAddress.host,
+        internetAddress.port,
+        timeout: internetAddress.timeOut,
+      )
+        ..destroy();
+      return true;
+    } catch (_) {
+      sock?.destroy();
+      return false;
+    }
+  }
+}
+  ```
+You won't have to use the `SocketObservingStrategy` directly because there are 4 convenient subclass of `SocketObservingStrategy` for different use case, namely;
+
+1. `DefaultObServingStrategy`:
+This is the strategy used if you don't supply any strategy to the `InternetConnectivity` class, you will have to cancel the subscription manually.
+
+2. `DisposeOnFirstConnectedStrategy`:
+This strategy cancel the subscription automatically after the first connected event, i.e once the device has internet connection, the stream subscription will be automatically closed.
+
+3. `DisposeOnFirstDisconnectedStrategy`:
+This strategy cancel the subscription automatically after the first disconnected event, i.e once the device is offline, the stream subscription will be automatically closed.
+
+4. `DisposeAfterDurationStrategy`:
+This strategy set the duration to listen for the internet connection events, the subscription will be closed once the duration elapse
+
+```dart
+class DisposeAfterDurationStrategy extends SocketObservingStrategy {
+  @override
+  final Duration duration;
+  
+  DisposeAfterDurationStrategy(
+      {required this.duration,
+      super.timeOut,
+      super.interval = kDefaultInterval,
+      super.initialDuration = kDefaultInitialDuration,
+      super.internetAddresses = kDefaultInternetAddresses});
+}
+```
+each of the strategies are initiated with default values for conveniency, you can override any of the default values. e.g creating a 
+`DefaultObServingStrategy` with a `timeOut` of 5 sec and `initialDuration` of 2 mins.
+
+```dart
+    DefaultObServingStrategy(
+      timeOut: const Duration(seconds: 5),
+      initialDuration: const Duration(minutes: 2)
+    )
+   ```
+   
+### The Default values
+ 
+ ```dart
+ 
+const kDefaultInternetAddresses = [
+  InternetAddress(
+      host: _googleHost, port: _defaultPort, timeOut: _defaultTimeOut),
+  InternetAddress(
+      host: _cloudFlareHost, port: _defaultPort, timeOut: _defaultTimeOut),
+];
+
+const kDefaultInterval = Duration(seconds: 5);
+const kDefaultInitialDuration = Duration(seconds: 0);
+const _googleHost = '8.8.8.8';
+const _cloudFlareHost = '1.1.1.1';
+const _defaultPort = 53;
+const _defaultTimeOut = Duration(seconds: 3);
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Note:bell:: The `InternetConnectivity` is not a singleton, for the ease of testing. If you would like to maintain a single instance through out the app lifecyle, you can:
+
+1. provide a global instance (not recommended)
+
+```dart
+final globalInstance = InternetConnectivity(
+  internetObservingStrategy:   DefaultObServingStrategy(
+      timeOut: const Duration(seconds: 5),
+      initialDuration: const Duration(minutes: 2)
+  )
+);
+```
+2. Register it with any dependency injection framework e.g GetIt
+
+```dart
+  GetIt.instance.registerSingleton<InternetConnectivity>(
+      InternetConnectivity(
+          internetObservingStrategy:   DefaultObServingStrategy(
+              timeOut: const Duration(seconds: 5),
+              initialDuration: const Duration(minutes: 2)
+          )
+      )
+  );
+  ```
+ 3.  Use Riverpod Provider (recommended)
+
+```dart
+final observingStrategyProvider = Provider<InternetObservingStrategy>((ref)=> 
+    DefaultObServingStrategy(
+    timeOut: const Duration(seconds: 5),
+    initialDuration: const Duration(minutes: 2)
+));
+
+final internetConnectivityProvider = Provider<InternetConnectivity>((ref) {
+  return InternetConnectivity(internetObservingStrategy: ref.watch(observingStrategyProvider));
+});
+```
+
+### Todos
+
+[ ] Write test cases
+
+
+
