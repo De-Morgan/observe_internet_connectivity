@@ -20,8 +20,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  http: ^0.13.5
+  flutter_riverpod: ^1.0.4
   observe_internet_connectivity:
-    path: '../../observe_internet_connectivity'
+    path: '../'
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

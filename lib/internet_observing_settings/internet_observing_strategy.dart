@@ -11,6 +11,7 @@ abstract class InternetObservingStrategy {
 
   Duration get interval;
 
+  /// The duration to listen for connection event
   Duration? get duration => null;
 
   /// The strategy to use to determine is there is internet access or not
