@@ -10,6 +10,7 @@ const kDefaultInternetAddresses = [
 
 /// The default [interval] used if non is supplied to [SocketObservingStrategy]
 const kDefaultInterval = Duration(seconds: 5);
+
 /// The default [initialDuration] used if non is supplied to [SocketObservingStrategy]
 const kDefaultInitialDuration = Duration(seconds: 0);
 

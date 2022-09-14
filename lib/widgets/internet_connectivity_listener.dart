@@ -10,8 +10,6 @@ import '../internet_connectivity.dart';
 typedef ConnectivityListener = Function(
     BuildContext context, bool hasInternetAccess);
 
-
-
 ///Use [InternetConnectivityListener] to listen to internet connectivity changes inside a flutter widget
 ///
 ///  return InternetConnectivityListener(
