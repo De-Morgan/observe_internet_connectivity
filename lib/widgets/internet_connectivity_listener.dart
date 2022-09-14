@@ -4,9 +4,28 @@ import 'package:flutter/material.dart';
 
 import '../internet_connectivity.dart';
 
+/// Function signature for Function(
+///    BuildContext context, bool hasInternetAccess)
+///
 typedef ConnectivityListener = Function(
     BuildContext context, bool hasInternetAccess);
 
+
+
+///Use [InternetConnectivityListener] to listen to internet connectivity changes inside a flutter widget
+///
+///  return InternetConnectivityListener(
+///       connectivityListener: (BuildContext context, bool hasInternetAccess) {
+///         if (hasInternetAccess) {
+///           context.showBanner('You are back Online!', color: Colors.green);
+///         } else {
+///           context.showBanner('No internet connection', color: Colors.red);
+///         }
+///       },
+///       child: Scaffold(
+///         body: Container(),
+///       ),
+///     );
 // ignore: must_be_immutable
 class InternetConnectivityListener extends StatefulWidget {
   InternetConnectivityListener({
@@ -18,8 +37,13 @@ class InternetConnectivityListener extends StatefulWidget {
     _internetConnectivity = internetConnectivity ?? InternetConnectivity();
   }
 
+  /// The child widget of [InternetConnectivityListener]
   final Widget child;
   InternetConnectivity? _internetConnectivity;
+
+  /// The function that is being triggered when there is changes in the internet connection
+  /// e.g from Offline to online or vise versa
+  ///
   final ConnectivityListener connectivityListener;
 
   @override

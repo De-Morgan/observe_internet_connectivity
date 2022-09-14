@@ -84,7 +84,7 @@ This is mostly useful if you want to get notified of internet connection changes
 
 ## Deep Dive
 
-The `InternetConnectivity` class is reponsible for observing the internet connectivity using the `InternetObservingStrategy` and a `StreamController` to emit internet connection changes. If no strategy is supplied when creating `InternetConnectivity`, the `DefaultObServingStrategy` will be used.
+The `InternetConnectivity` class is responsible for observing the internet connectivity using the `InternetObservingStrategy` and a `StreamController` to emit internet connection changes. If no strategy is supplied when creating `InternetConnectivity`, the `DefaultObServingStrategy` will be used.
 
 ```dart
   InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {

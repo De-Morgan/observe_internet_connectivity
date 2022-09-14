@@ -3,11 +3,21 @@ import 'dart:async';
 import 'constants.dart';
 import 'internet_observing_settings/internet_observing_strategy.dart';
 
+///The [InternetConnectivity] class is responsible for observing the internet connectivity using the [InternetObservingStrategy] and a StreamController to emit internet connection changes.
+/// If no strategy is supplied when creating [InternetConnectivity], the [DefaultObServingStrategy] will be used.
+///
+/// InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
+//     _internetObservingStrategy =
+//         internetObservingStrategy ?? DefaultObServingStrategy();
+//     _internetAccessCheckController = StreamController<bool>.broadcast(
+//         onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
+//   }
+
 class InternetConnectivity {
   late StreamController<bool> _internetAccessCheckController;
   late final InternetObservingStrategy _internetObservingStrategy;
   bool? _lastInternetAccessCheck;
-  Timer? _intervalTimer, disposeTimer;
+  Timer? _intervalTimer, _disposeTimer;
   bool _streamIsClosed = false;
 
   InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
@@ -17,9 +27,19 @@ class InternetConnectivity {
         onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
   }
 
+  /// The Check to know if the device has internet connection
+  ///   final hasInternet = await InternetConnectivity().hasInternetConnection;
+  //   if (hasInternet) {
+  //     //You are connected to the internet
+  //   } else {
+  //     //"No internet connection
+  //   }
   Future<bool> get hasInternetConnection =>
       _internetObservingStrategy.hasInternetConnection;
 
+  /// Steam to emit internet connection changes i.e from Offline to online or vise versa
+  /// Changes are only pushed when the stream has an active listener
+  ///
   Stream<bool> get observeInternetConnection =>
       _internetAccessCheckController.stream;
 
@@ -56,7 +76,7 @@ class InternetConnectivity {
 
   void _onCancelStream() {
     _intervalTimer?.cancel();
-    disposeTimer?.cancel();
+    _disposeTimer?.cancel();
     _lastInternetAccessCheck = null;
     _streamIsClosed = true;
   }
@@ -64,7 +84,7 @@ class InternetConnectivity {
   void _disposeAfterDuration() {
     if (_internetObservingStrategy.duration != null) {
       if (!_hasListener) return;
-      disposeTimer = Timer(_internetObservingStrategy.duration!, () {
+      _disposeTimer = Timer(_internetObservingStrategy.duration!, () {
         _internetAccessCheckController.close();
       });
     }
