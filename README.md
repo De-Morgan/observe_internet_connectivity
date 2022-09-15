@@ -10,7 +10,6 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
-
 A flutter package that helps to observe internet connection via a customizable observing strategy
 
 ## Problem Statement
@@ -21,7 +20,7 @@ Read more about the issue [here](https://stackoverflow.com/questions/49648022/ch
 
 ## Available Features
 
-1. **Check to know if a device has internet connection**
+1. **Check to know if a device has an internet connection**
 
 ```dart
   final hasInternet = await InternetConnectivity().hasInternetConnection;
@@ -45,7 +44,7 @@ Read more about the issue [here](https://stackoverflow.com/questions/49648022/ch
    await Future.delayed(const Duration(seconds: 10 ));
    subscription.cancel();
    ```
-Note:bell:: This example use the `DefaultObServingStrategy` therefore you need to remember to cancel the subscription manually, Other available strategies have mechanism in which the subscription are automatically cancelled.
+Note:bell:: This example uses the `DefaultObServingStrategy` therefore you need to remember to cancel the subscription manually, Other available strategies have a mechanism in which the subscription is automatically cancelled.
 
 3. **Use `InternetConnectivityListener` to listen to internet connectivity changes inside a flutter widget**
 
@@ -83,7 +82,7 @@ This is mostly useful if you want to get notified of internet connection changes
       child: ChildWidget(),
     );
    ```
-  This returns the `OnlineWidget` when the user has internet connection and returns the `OfflineWidget` widget when the user is disconnected
+  This returns the `OnlineWidget` when the user has an internet connection and returns the `OfflineWidget` widget when the user is disconnected
 
  ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/Builder.gif)
  
@@ -101,7 +100,7 @@ The `InternetConnectivity` class is responsible for observing the internet conne
   }
   ```
   
-The package checks for active internet connection by opening a socket to a list of specified addresses, each with individual port and timeout using  `SocketObservingStrategy`. If you'd like to implement a different type of observing strategy, you can create a new  strategy by extending `InternetObservingStrategy`. All observing strategies are a sub-class of `InternetObservingStrategy`
+The package checks for active internet connection by opening a socket to a list of specified addresses, each with an individual port and timeout using  `SocketObservingStrategy`. If you'd like to implement a different type of observing strategy, you can create a new strategy by extending `InternetObservingStrategy`. All observing strategies are a sub-class of `InternetObservingStrategy`
 
   ### `SocketObservingStrategy`
 
@@ -178,19 +177,19 @@ abstract class SocketObservingStrategy extends InternetObservingStrategy {
   }
 }
   ```
-The library comes with 4 different strategies that extends `SocketObservingStrategy` for different use case, namely;
+The library comes with 4 different strategies that extend `SocketObservingStrategy` for a different use cases, namely;
 
 1. `DefaultObServingStrategy`:
 This is the strategy used if you don't supply any strategy to the `InternetConnectivity` class, you will have to cancel the subscription manually.
 
 2. `DisposeOnFirstConnectedStrategy`:
-This strategy cancel the subscription automatically after the first connected event, i.e once the device has internet connection, the stream subscription will be automatically closed.
+This strategy cancels the subscription automatically after the first connected event, i.e once the device has an internet connection, the stream subscription will be automatically closed.
 
 3. `DisposeOnFirstDisconnectedStrategy`:
-This strategy cancel the subscription automatically after the first disconnected event, i.e once the device is offline, the stream subscription will be automatically closed.
+This strategy cancels the subscription automatically after the first disconnected event, i.e once the device is offline, the stream subscription will be automatically closed.
 
 4. `DisposeAfterDurationStrategy`:
-This strategy set the duration to listen for the internet connection events, the subscription will be closed once the duration elapse
+This strategy set the duration to listen for the internet connection events, the subscription will be closed once the duration elapses
 
 ```dart
 class DisposeAfterDurationStrategy extends SocketObservingStrategy {
@@ -205,7 +204,7 @@ class DisposeAfterDurationStrategy extends SocketObservingStrategy {
       super.internetAddresses = kDefaultInternetAddresses});
 }
 ```
-each of the strategies are initiated with default values for convenience, you can override any of the default values. e.g creating a 
+each of the strategies is initiated with default values for convenience, you can override any of the default values. e.g creating a 
 `DefaultObServingStrategy` with a `timeOut` of 5 sec and `initialDuration` of 2 mins.
 
 ```dart
@@ -236,7 +235,7 @@ const _defaultTimeOut = Duration(seconds: 3);
 
 ## Implementing your own `InternetObservingStrategy`
 
-For example you can implement a fake observing strategy for testing as follows;
+For example, you can implement a fake observing strategy for testing as follows;
 
 ```dart
 class FakeObservingStrategy extends InternetObservingStrategy{
@@ -280,7 +279,7 @@ class HttpsObservingStrategy extends InternetObservingStrategy {
 
 ## Additional information
 
-Note:bell:: The `InternetConnectivity` is not a singleton, for the ease of testing. If you would like to maintain a single instance through out the app lifecyle, you can:
+Note:bell:: The `InternetConnectivity` is not a singleton, for the ease of testing. If you would like to maintain a single instance throughout the app lifecycle, you can:
 
 1. provide a global instance (not recommended)
 
@@ -324,5 +323,3 @@ final internetConnectivityProvider = Provider<InternetConnectivity>((ref) {
 
 ## License
 This package is licensed under the MIT license. See [LICENSE](https://github.com/De-Morgan/observe_internet_connectivity/blob/master/LICENSE) for details.
-
-
