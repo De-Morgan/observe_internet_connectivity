@@ -1,5 +1,4 @@
-import '../constants.dart';
-import 'socket_observing_strategy.dart';
+part of observe_internet_connectivity;
 
 ///This strategy cancel the subscription automatically after the first connected event,
 /// i.e once the device has internet connection, the stream subscription will be automatically closed.

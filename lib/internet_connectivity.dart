@@ -1,18 +1,14 @@
-import 'dart:async';
+part of observe_internet_connectivity;
 
-import 'constants.dart';
-import 'internet_observing_settings/internet_observing_strategy.dart';
-
-///The [InternetConnectivity] class is responsible for observing the internet connectivity using the [InternetObservingStrategy] and a StreamController to emit internet connection changes.
+///The [InternetConnectivity] class is responsible for observing the internet connectivity using the [InternetObservingStrategy] and a [StreamController] to emit internet connection changes.
 /// If no strategy is supplied when creating [InternetConnectivity], the [DefaultObServingStrategy] will be used.
 ///
 /// InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
-//     _internetObservingStrategy =
-//         internetObservingStrategy ?? DefaultObServingStrategy();
-//     _internetAccessCheckController = StreamController<bool>.broadcast(
-//         onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
-//   }
-
+///     _internetObservingStrategy =
+///         internetObservingStrategy ?? DefaultObServingStrategy();
+///     _internetAccessCheckController = StreamController<bool>.broadcast(
+///         onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
+///   }
 class InternetConnectivity {
   late StreamController<bool> _internetAccessCheckController;
   late final InternetObservingStrategy _internetObservingStrategy;

@@ -1,5 +1,4 @@
-import '../constants.dart';
-import 'socket_observing_strategy.dart';
+part of observe_internet_connectivity;
 
 ///This is the strategy used if you don't supply any strategy to the [InternetConnectivity] class,
 /// you will have to cancel the subscription manually.

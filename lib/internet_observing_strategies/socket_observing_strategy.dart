@@ -1,8 +1,5 @@
-import 'dart:async';
-import 'dart:io';
+part of observe_internet_connectivity;
 
-import '../models/internet_address.dart';
-import 'internet_observing_strategy.dart';
 
 ////The base for all Observing strategies for strategy that opens a socket to a list of specified addresses.
 abstract class SocketObservingStrategy extends InternetObservingStrategy {

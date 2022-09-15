@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
+part of observe_internet_connectivity;
 
-import '../internet_connectivity.dart';
 
-/// Function signature forWidget Function(
-///     BuildContext context, bool hasInternetAccess, Widget? child)
-///
 typedef ConnectivityBuilder = Widget Function(
     BuildContext context, bool hasInternetAccess, Widget? child);
 

@@ -1,4 +1,4 @@
-import 'models/internet_address.dart';
+part of observe_internet_connectivity;
 
 /// Predefined reliable addresses. This is opinionated but should be enough
 /// The default [internetAddresses] used if non is supplied to [SocketObservingStrategy]
@@ -10,6 +10,7 @@ import 'models/internet_address.dart';
 /// | 8.8.4.4        | Google     | https://developers.google.com/speed/public-dns/ |
 /// | 208.67.222.222 | OpenDNS    | https://use.opendns.com/                        |
 /// | 208.67.220.220 | OpenDNS    | https://use.opendns.com/                        |
+///
 ///
 const kDefaultInternetAddresses = [
   InternetAddress(

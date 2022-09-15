@@ -1,12 +1,7 @@
-import 'dart:async';
+part of observe_internet_connectivity;
 
-import 'package:flutter/material.dart';
 
-import '../internet_connectivity.dart';
 
-/// Function signature for Function(
-///    BuildContext context, bool hasInternetAccess)
-///
 typedef ConnectivityListener = Function(
     BuildContext context, bool hasInternetAccess);
 

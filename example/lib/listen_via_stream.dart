@@ -1,4 +1,5 @@
-import 'package:observe_internet_connectivity/internet_connectivity.dart';
+
+import 'package:observe_internet_connectivity/observe_internet_connectivity.dart';
 
 main() async{
   final subscription =
