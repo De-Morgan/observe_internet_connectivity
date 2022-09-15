@@ -13,9 +13,15 @@ and the Flutter guide for
 
 A flutter package that helps to observe internet connection via a customizable observing strategy
 
+## Problem Statement
+
+> I found that just using the connectivity package was not enough to tell if the internet was available or not. It only checks if there is WIFI or if mobile data is turned on, it does not check for an actual internet connection...
+
+Read more about the issue [here](https://stackoverflow.com/questions/49648022/check-whether-there-is-an-internet-connection-available-on-flutter-app/73724798?answertab=modifieddesc#tab-top)
+
 ## Available Features
 
-1. **Check to know if the device has internet connection**
+1. **Check to know if a device has internet connection**
 
 ```dart
   final hasInternet = await InternetConnectivity().hasInternetConnection;
