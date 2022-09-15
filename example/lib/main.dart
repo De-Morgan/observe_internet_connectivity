@@ -14,11 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        title: 'Flutter Demo',
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
-        //home: const ShowInternetConnectionBanner(),
-         home:  const AutoRetryWidget()
+         home:  const AutoRetryExample()
       ),
     );
   }

@@ -5,8 +5,8 @@ import 'package:observe_internet_connectivity/observe_internet_connectivity.dart
 
 import 'provider_observing_strategy.dart';
 
-class AutoRetryWidget extends StatelessWidget {
-  const AutoRetryWidget({Key? key}) : super(key: key);
+class AutoRetryExample extends StatelessWidget {
+  const AutoRetryExample({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
