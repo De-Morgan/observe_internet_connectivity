@@ -314,6 +314,7 @@ Please check [auto_retry_widget.dart](https://github.com/De-Morgan/observe_inter
 ![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/AutoRetry.gif)
 
 
+
 ## Additional information
 
 Note:bell:: The `InternetConnectivity` is not a singleton, for the ease of testing. If you would like to maintain a single instance throughout the app lifecycle, you can:
