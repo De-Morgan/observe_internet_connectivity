@@ -1,6 +1,6 @@
 name: observe_internet_connectivity
 description: A flutter package that helps to observe internet connection via a customizable observing strategy.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/De-Morgan/observe_internet_connectivity
 
 environment:
