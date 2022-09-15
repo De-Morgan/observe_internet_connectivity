@@ -1,7 +1,5 @@
 part of observe_internet_connectivity;
 
-
-
 typedef ConnectivityListener = Function(
     BuildContext context, bool hasInternetAccess);
 

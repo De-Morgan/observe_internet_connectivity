@@ -1,6 +1,5 @@
 part of observe_internet_connectivity;
 
-
 typedef ConnectivityBuilder = Widget Function(
     BuildContext context, bool hasInternetAccess, Widget? child);
 
