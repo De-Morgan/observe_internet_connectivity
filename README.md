@@ -277,6 +277,43 @@ class HttpsObservingStrategy extends InternetObservingStrategy {
 }
 ```
 
+## Auto retry example
+
+This example showcase how you can use the `InternetConnectivityListener` and the `DisposeOnFirstConnectedStrategy` to automaticaly retry a failed network request once the device is back online.
+
+```dart
+class _RetryWidget extends ConsumerWidget {
+  const _RetryWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InternetConnectivityListener(
+      internetConnectivity: ref.read(disposeOnFirstConnectedProvider),
+      connectivityListener: (BuildContext context, bool hasInternetAccess) {
+        if (hasInternetAccess) {
+          ref.read(dataProvider.notifier).fetchData();
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          Spacer(flex: 3,),
+          Icon(Icons.refresh_outlined, size: 80,),
+          Spacer(),
+          Text('No internet connection, please connect to the internet', textAlign: TextAlign.center,),
+          Spacer(flex: 10,),
+        ],
+      ),
+    );
+  }
+}
+```
+
+Please check [auto_retry_widget.dart](https://github.com/De-Morgan/observe_internet_connectivity/blob/master/example/lib/auto_retry_widget.dart) for the complete code.
+
+![](https://raw.githubusercontent.com/De-Morgan/observe_internet_connectivity/master/demo/AutoRetry.gif)
+
+
 ## Additional information
 
 Note:bell:: The `InternetConnectivity` is not a singleton, for the ease of testing. If you would like to maintain a single instance throughout the app lifecycle, you can:
