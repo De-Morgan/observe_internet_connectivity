@@ -49,7 +49,7 @@ class OnlineWidget extends StatelessWidget {
           color: Colors.green, borderRadius: BorderRadius.circular(16)),
       child: Text(
         'Online!',
-        style: context.textTheme.headline4?.copyWith(color: Colors.white),
+        style: context.textTheme.headlineMedium?.copyWith(color: Colors.white),
       ),
     );
   }
@@ -68,7 +68,7 @@ class OfflineWidget extends StatelessWidget {
           color: Colors.red, borderRadius: BorderRadius.circular(16)),
       child: Text(
         'Offline!',
-        style: context.textTheme.headline4?.copyWith(color: Colors.white),
+        style: context.textTheme.headlineMedium?.copyWith(color: Colors.white),
       ),
     );
   }

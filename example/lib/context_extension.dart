@@ -32,7 +32,7 @@ extension ContextExtension on BuildContext {
     ScaffoldMessenger.of(this).hideCurrentMaterialBanner();
     ScaffoldMessenger.of(this).showMaterialBanner(MaterialBanner(
       backgroundColor: color,
-      contentTextStyle: primaryTextTheme.bodyText2,
+      contentTextStyle: primaryTextTheme.bodyMedium,
       content: Text(
         message,
         maxLines: 2,
@@ -40,7 +40,7 @@ extension ContextExtension on BuildContext {
       actions: [
         Text(
           'Dismiss',
-          style: primaryTextTheme.subtitle2?.copyWith(),
+          style: primaryTextTheme.titleSmall?.copyWith(),
         )
       ],
     ));
