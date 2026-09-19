@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 ///This is the strategy used if you don't supply any strategy to the [InternetConnectivity] class,
 /// you will have to cancel the subscription manually.

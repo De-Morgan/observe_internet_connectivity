@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of 'observe_internet_connectivity.dart';
 
 /// Predefined reliable addresses. This is opinionated but should be enough
 /// The default [internetAddresses] used if non is supplied to [SocketObservingStrategy]

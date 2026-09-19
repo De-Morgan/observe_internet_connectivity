@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 ///The base for all Observing strategies for strategy that opens a socket to a list of specified addresses.
 abstract class SocketObservingStrategy extends InternetObservingStrategy {

@@ -4,7 +4,7 @@ import 'package:observe_internet_connectivity/observe_internet_connectivity.dart
 import 'context_extension.dart';
 
 class ShowInternetConnectionBanner extends StatelessWidget {
-  const ShowInternetConnectionBanner({Key? key}) : super(key: key);
+  const ShowInternetConnectionBanner({super.key});
 
   @override
   Widget build(BuildContext context) {

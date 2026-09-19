@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 class InternetAddress {
   final String host;

@@ -6,7 +6,7 @@ import 'package:observe_internet_connectivity/observe_internet_connectivity.dart
 import 'provider_observing_strategy.dart';
 
 class AutoRetryExample extends StatelessWidget {
-  const AutoRetryExample({Key? key}) : super(key: key);
+  const AutoRetryExample({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _LoadedWidget extends StatelessWidget {
 }
 
 class _RetryWidget extends ConsumerWidget {
-  const _RetryWidget({Key? key}) : super(key: key);
+  const _RetryWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -77,11 +77,21 @@ class _RetryWidget extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
-          Spacer(flex: 3,),
-          Icon(Icons.refresh_outlined, size: 80,),
+          Spacer(
+            flex: 3,
+          ),
+          Icon(
+            Icons.refresh_outlined,
+            size: 80,
+          ),
           Spacer(),
-          Text('No internet connection, please connect to the internet', textAlign: TextAlign.center,),
-          Spacer(flex: 10,),
+          Text(
+            'No internet connection, please connect to the internet',
+            textAlign: TextAlign.center,
+          ),
+          Spacer(
+            flex: 10,
+          ),
         ],
       ),
     );
@@ -95,13 +105,13 @@ class FakeDataNotifier extends StateNotifier<DataState> {
     fetchDataError();
   }
 
-  fetchDataError() async {
+  Future<void> fetchDataError() async {
     state = DataState.loading;
     await Future.delayed(const Duration(seconds: 1));
     state = DataState.error;
   }
 
-  fetchData() async {
+  Future<void> fetchData() async {
     state = DataState.loading;
     await Future.delayed(const Duration(seconds: 3));
     state = DataState.loaded;

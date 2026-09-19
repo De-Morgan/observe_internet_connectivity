@@ -1,7 +1,7 @@
 
 import 'package:observe_internet_connectivity/observe_internet_connectivity.dart';
 
-main() async{
+Future<void> main() async {
   final subscription =
       InternetConnectivity().observeInternetConnection.listen((bool hasInternetAccess) {
         if(!hasInternetAccess){

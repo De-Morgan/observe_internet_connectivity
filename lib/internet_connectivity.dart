@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of 'observe_internet_connectivity.dart';
 
 ///The [InternetConnectivity] class is responsible for observing the internet connectivity using the [InternetObservingStrategy] and a [StreamController] to emit internet connection changes.
 /// If no strategy is supplied when creating [InternetConnectivity], the [DefaultObServingStrategy] will be used.
@@ -6,7 +6,7 @@ part of observe_internet_connectivity;
 /// InternetConnectivity({InternetObservingStrategy? internetObservingStrategy}) {
 ///     _internetObservingStrategy =
 ///         internetObservingStrategy ?? DefaultObServingStrategy();
-///     _internetAccessCheckController = StreamController<bool>.broadcast(
+///     _internetAccessCheckController = `StreamController<bool>`.broadcast(
 ///         onCancel: _onCancelStream, onListen: _emitInitialInternetAccess);
 ///   }
 class InternetConnectivity {

@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 typedef ConnectivityBuilder = Widget Function(
     BuildContext context, bool hasInternetAccess, Widget? child);
@@ -19,12 +19,12 @@ typedef ConnectivityBuilder = Widget Function(
 // ignore: must_be_immutable
 class InternetConnectivityBuilder extends StatelessWidget {
   InternetConnectivityBuilder({
-    Key? key,
+    super.key,
     this.child,
     required this.connectivityBuilder,
     InternetConnectivity? internetConnectivity,
     this.initialData = false,
-  }) : super(key: key) {
+  }) {
     _internetConnectivity = internetConnectivity ?? InternetConnectivity();
   }
 

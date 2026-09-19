@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 ///This strategy set the duration to listen for the internet connection events,
 /// the subscription will be closed once the duration elapses

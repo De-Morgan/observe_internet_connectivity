@@ -4,7 +4,7 @@ import 'package:observe_internet_connectivity/observe_internet_connectivity.dart
 import 'context_extension.dart';
 
 class InternetConnectivityBuilderExample extends StatelessWidget {
-  const InternetConnectivityBuilderExample({Key? key}) : super(key: key);
+  const InternetConnectivityBuilderExample({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class InternetConnectivityBuilderExample extends StatelessWidget {
 }
 
 class OnlineWidget extends StatelessWidget {
-  const OnlineWidget({Key? key}) : super(key: key);
+  const OnlineWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class OnlineWidget extends StatelessWidget {
 }
 
 class OfflineWidget extends StatelessWidget {
-  const OfflineWidget({Key? key}) : super(key: key);
+  const OfflineWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

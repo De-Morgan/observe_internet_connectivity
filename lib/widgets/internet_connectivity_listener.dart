@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 typedef ConnectivityListener = Function(
     BuildContext context, bool hasInternetAccess);
@@ -20,11 +20,11 @@ typedef ConnectivityListener = Function(
 // ignore: must_be_immutable
 class InternetConnectivityListener extends StatefulWidget {
   InternetConnectivityListener({
-    Key? key,
+    super.key,
     required this.child,
     required this.connectivityListener,
     InternetConnectivity? internetConnectivity,
-  }) : super(key: key) {
+  }) {
     _internetConnectivity = internetConnectivity ?? InternetConnectivity();
   }
 
@@ -57,6 +57,7 @@ class _InternetConnectivityListenerState
     super.initState();
     subscription =
         internetConnectivity.observeInternetConnection.listen((event) {
+      if (!mounted) return;
       onConnectivityChanged?.call(context, event);
     });
   }

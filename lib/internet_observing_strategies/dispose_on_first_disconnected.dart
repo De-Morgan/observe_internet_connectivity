@@ -1,4 +1,4 @@
-part of observe_internet_connectivity;
+part of '../observe_internet_connectivity.dart';
 
 /// This strategy cancel the subscription automatically after the first disconnected event,
 /// i.e once the device is offline, the stream subscription will be automatically closed.
